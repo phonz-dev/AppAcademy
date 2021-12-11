@@ -3,6 +3,16 @@
 # An element is considered a "peak" if it is greater than both it's left and right neighbor.
 # The first or last element of the array is considered a "peak" if it is greater than it's one neighbor.
 
+def peak_finder(nums)
+  nums.select.with_index do |mid, i|
+    left = nums[i - 1]
+    right = nums[i + 1]
+
+    i == 0 && mid > right ||
+    i == nums.length - 1 && mid > left ||
+    mid > left  && mid > right
+  end
+end
 
 p peak_finder([1, 3, 5, 4])         # => [5]
 p peak_finder([4, 2, 3, 6, 10])     # => [4, 10]
