@@ -8,7 +8,7 @@ def largest_prime_factor(num)
       return i
     end
   end
-  
+
   num
 end
 
@@ -17,6 +17,17 @@ def is_prime?(num)
 
   (2...num).each do |i|
     return false if num % i == 0
+  end
+
+  true
+end
+
+def unique_chars?(str)
+  seen = []
+
+  str.each_char do |char|
+    return false if seen.include?(char)
+    seen << char
   end
 
   true
