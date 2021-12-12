@@ -38,3 +38,17 @@ def dupe_indices(arr)
   arr.each_with_index { |el, i| arr_indices[el] << i }
   arr_indices.select { |k, v| v.length > 1 }
 end
+
+def ana_array(arr_1, arr_2)
+  el_counts_1 = get_element_counts(arr_1)
+  el_counts_2 = get_element_counts(arr_2)
+
+  el_counts_1 == el_counts_2
+end
+
+def get_element_counts(arr)
+  arr.inject(Hash.new(0)) do |hash, el|
+    hash[el] += 1
+    hash
+  end
+end
