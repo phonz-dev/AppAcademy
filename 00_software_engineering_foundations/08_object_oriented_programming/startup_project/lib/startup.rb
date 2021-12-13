@@ -45,4 +45,21 @@ class Startup
   def payday
     @employees.each { |employee| self.pay_employee(employee) }
   end
+
+  def average_salary
+    total = @employees.map { |employee| @salaries[employee.title] }.sum
+    total / size
+  end
+
+  def close
+    @employees = []
+    @funding = 0
+  end
+
+  def acquire(other_startup)
+    @funding += other_startup.funding
+    @salaries = {**other_startup.salaries, **@salaries}
+    @employees.concat(other_startup.employees)
+    other_startup.close
+  end
 end
