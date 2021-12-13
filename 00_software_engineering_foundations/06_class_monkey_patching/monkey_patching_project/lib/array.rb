@@ -30,4 +30,27 @@ class Array
       h
     end
   end
+
+  def my_count(val)
+    el_counts = self.counts
+    el_counts[val]
+  end
+
+  def my_index(val)
+    (0...self.length).each { |i| return i if self[i] == val }
+    nil
+  end
+
+  def my_uniq
+    el_counts = self.counts
+    el_counts.keys
+  end
+
+  def my_transpose
+    self.map.with_index do |row, i|
+      row.map.with_index do |_, j|
+        self[j][i]
+      end
+    end
+  end
 end
