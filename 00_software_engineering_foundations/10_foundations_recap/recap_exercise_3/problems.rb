@@ -54,3 +54,39 @@ end
 # Examples
 # p char_indices('mississippi')   # => {"m"=>[0], "i"=>[1, 4, 7, 10], "s"=>[2, 3, 5, 6], "p"=>[8, 9]}
 # p char_indices('classroom')     # => {"c"=>[0], "l"=>[1], "a"=>[2], "s"=>[3, 4], "r"=>[5], "o"=>[6, 7], "m"=>[8]}
+
+#####################################################################
+
+# longest_streak
+# Write a method longest_streak(str) that accepts a string as an arg. 
+# The method should return the longest streak of consecutive characters 
+# in the string. If there are any ties, return the streak that occurs 
+# later in the string.
+
+def longest_streak(str)
+  longest = ""
+  i = 0
+
+  while i < str.length
+    current = ""
+    ch = str[i]
+
+    while ch == str[i]
+      current += ch
+      i += 1
+    end
+
+    if current.length >= longest.length
+      longest = current
+    end
+  end
+  
+  longest
+end
+
+# Examples
+p longest_streak('a')           # => 'a'
+p longest_streak('accccbbb')    # => 'cccc'
+p longest_streak('aaaxyyyyyzz') # => 'yyyyy
+p longest_streak('aaabbb')      # => 'bbb'
+p longest_streak('abc')         # => 'c'
