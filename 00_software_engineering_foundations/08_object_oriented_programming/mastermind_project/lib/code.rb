@@ -9,16 +9,12 @@ class Code
   attr_reader :pegs
 
   def self.valid_pegs?(pegs)
-    valid_pegs = POSSIBLE_PEGS.keys
-    pegs.map(&:capitalize)
-        .all? { |peg| valid_pegs.include?(peg) }
+    (0...pegs.length).all? { |i| Code::POSSIBLE_PEGS.include?(pegs[i].upcase) }
   end
 
   def self.random(length)
-    valid_pegs = POSSIBLE_PEGS.keys
-    new_pegs = []
-    length.times { new_pegs << valid_pegs.sample }
-    Code.new(new_pegs)
+    rand_pegs = Array.new(length) { Code::POSSIBLE_PEGS.keys.sample }
+    Code.new(rand_pegs)
   end
 
   def self.from_string(str_pegs)
@@ -27,7 +23,7 @@ class Code
 
   def initialize(pegs)
     raise "invalid pegs" unless Code.valid_pegs?(pegs)
-    @pegs = pegs.map(&:capitalize)
+    @pegs = pegs.map(&:upcase)
   end
 
   def [](index)
