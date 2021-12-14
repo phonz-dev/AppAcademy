@@ -303,3 +303,34 @@ end
 # p multiply(-3, -6)      # => 18
 # p multiply(3, -6)       # => -18
 # p multiply(-3, 6)       # => -18
+
+#####################################################################
+
+# lucas_sequence
+# The Lucas Sequence is a sequence of numbers. The first number of the 
+# sequence is 2. The second number of the Lucas Sequence is 1. To generate 
+# the next number of the sequence, we add up the previous two numbers. For 
+# example, the first six numbers of the sequence are: 2, 1, 3, 4, 7, 11, ...
+
+# Write a method lucas_sequence that accepts a number representing a length as 
+# an arg. The method should return an array containing the Lucas Sequence up to 
+# the given length. Solve this recursively.
+
+def lucas_sequence(length)
+  return [] if length == 0
+  return [2] if length == 1
+  return [2, 1] if length == 2
+
+  prev = lucas_sequence(length - 1)
+  next_seq = prev[prev.length - 1] + prev[prev.length - 2]
+
+  [*prev, next_seq]
+end
+
+# Examples
+# p lucas_sequence(0)   # => []
+# p lucas_sequence(1)   # => [2]    
+# p lucas_sequence(2)   # => [2, 1]
+# p lucas_sequence(3)   # => [2, 1, 3]
+# p lucas_sequence(6)   # => [2, 1, 3, 4, 7, 11]
+# p lucas_sequence(8)   # => [2, 1, 3, 4, 7, 11, 18, 29]
