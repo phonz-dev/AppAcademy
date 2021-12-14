@@ -1,3 +1,5 @@
+require "byebug"
+
 # no_dupes?
 # Write a method no_dupes?(arr) that accepts an array as an arg 
 # and returns an new array containing the elements that were not 
@@ -85,8 +87,47 @@ def longest_streak(str)
 end
 
 # Examples
-p longest_streak('a')           # => 'a'
-p longest_streak('accccbbb')    # => 'cccc'
-p longest_streak('aaaxyyyyyzz') # => 'yyyyy
-p longest_streak('aaabbb')      # => 'bbb'
-p longest_streak('abc')         # => 'c'
+# p longest_streak('a')           # => 'a'
+# p longest_streak('accccbbb')    # => 'cccc'
+# p longest_streak('aaaxyyyyyzz') # => 'yyyyy
+# p longest_streak('aaabbb')      # => 'bbb'
+# p longest_streak('abc')         # => 'c'
+
+#####################################################################
+
+# bi_prime?
+# Write a method bi_prime?(num) that accepts a number as an arg and returns 
+# a boolean indicating whether or not the number is a bi-prime. A bi-prime is 
+# a positive integer that can be obtained by multiplying two prime numbers.
+
+# For Example:
+
+# 14 is a bi-prime because 2 * 7
+# 22 is a bi-prime because 2 * 11
+# 25 is a bi-prime because 5 * 5
+# 24 is not a bi-prime because no two prime numbers have a product of 24
+
+def bi_prime?(num)
+  (2...num).each do |divisor_1|
+    (divisor_1...num).each do |divisor_2|
+      if prime?(divisor_1) && prime?(divisor_2)
+        return true if divisor_1 * divisor_2 == num
+      end
+    end
+  end
+
+  false
+end
+
+def prime?(num)
+  return false if num < 2
+  (2...num).none? { |divisor| num % divisor == 0 }
+end
+
+# Examples
+# p bi_prime?(14)   # => true
+# p bi_prime?(22)   # => true
+# p bi_prime?(25)   # => true
+# p bi_prime?(94)   # => true
+# p bi_prime?(24)   # => false
+# p bi_prime?(64)   # => false
