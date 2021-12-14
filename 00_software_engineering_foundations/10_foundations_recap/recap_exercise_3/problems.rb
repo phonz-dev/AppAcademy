@@ -1,5 +1,7 @@
 require "byebug"
 
+# GENERAL PROBLEMS
+
 # no_dupes?
 # Write a method no_dupes?(arr) that accepts an array as an arg 
 # and returns an new array containing the elements that were not 
@@ -171,3 +173,35 @@ end
 # p vigenere_cipher("toerrishuman", [1, 2, 3])  # => "uqhstltjxncq"
 # p vigenere_cipher("zebra", [3, 0])            # => "ceerd"
 # p vigenere_cipher("yawn", [5, 1])             # => "dbbo"
+
+#####################################################################
+
+# vowel_rotate
+# Write a method vowel_rotate(str) that accepts a string as an arg and 
+# returns the string where every vowel is replaced with the vowel that 
+# appears before it sequentially in the original string. The first vowel 
+# of the string should be replaced with the last vowel.
+
+def vowel_rotate(str)
+  vowels = "aeiou"
+  str_vowels = str.split("").select { |char| vowels.include?(char) }
+  new_str_vowels = str_vowels.rotate(-1)
+  new_str = ""
+  
+  str.each_char do |char|
+    if vowels.include?(char)
+      new_str += new_str_vowels.shift
+    else
+      new_str += char
+    end
+  end
+
+  new_str
+end
+
+# Examples
+# p vowel_rotate('computer')      # => "cempotur"
+# p vowel_rotate('oranges')       # => "erongas"
+# p vowel_rotate('headphones')    # => "heedphanos"
+# p vowel_rotate('bootcamp')      # => "baotcomp"
+# p vowel_rotate('awesome')       # => "ewasemo"
