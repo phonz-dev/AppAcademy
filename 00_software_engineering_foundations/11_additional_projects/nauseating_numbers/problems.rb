@@ -387,3 +387,67 @@ end
 # ]) # false
 
 ##################################################################################
+
+
+# pascals_triangle
+# Pascal's triangle is a 2-dimensional array with the shape of a pyramid. The top of 
+# the pyramid is the number 1. To generate further levels of the pyramid, every element 
+# is the sum of the element above and to the left with the element above and to the right. 
+# Nonexisting elements are treated as 0 when calculating the sum. For example, here are the 
+# first 5 levels of Pascal's triangle:
+
+#       1
+#      1 1
+#     1 2 1
+#    1 3 3 1
+#   1 4 6 4 1
+
+# Write a method pascals_triangle that accepts a positive number, n, as an argument and returns 
+# a 2-dimensional array representing the first n levels of pascal's triangle.
+
+def pascals_triangle(n)
+  pyramid = [[1]]
+  prev_pointer = 0
+
+  while pyramid.length < n
+    prev_level = pyramid[prev_pointer]
+    next_level = []
+
+    (0...prev_level.length).each do |i|
+      if i == 0
+        next_level << 1
+      else
+        sum = prev_level[i] + prev_level[i - 1]
+        next_level << sum
+      end
+    end
+
+    next_level << 1
+    pyramid << next_level
+    prev_pointer += 1
+  end
+
+  pyramid
+end
+
+# Examples
+
+# p pascals_triangle(5)
+# [
+#     [1],
+#     [1, 1],
+#     [1, 2, 1],
+#     [1, 3, 3, 1],
+#     [1, 4, 6, 4, 1]
+# ]
+
+# p pascals_triangle(7)
+# [
+#     [1],
+#     [1, 1],
+#     [1, 2, 1],
+#     [1, 3, 3, 1],
+#     [1, 4, 6, 4, 1],
+#     [1, 5, 10, 10, 5, 1],
+#     [1, 6, 15, 20, 15, 6, 1]
+# ]
