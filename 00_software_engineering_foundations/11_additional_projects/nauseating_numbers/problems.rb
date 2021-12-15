@@ -451,3 +451,47 @@ end
 #     [1, 5, 10, 10, 5, 1],
 #     [1, 6, 15, 20, 15, 6, 1]
 # ]
+
+##################################################################################
+##################################################################################
+
+# PHASE 4
+
+# mersenne_prime
+# A "Mersenne prime" is a prime number that is one less than a power of 2. This means 
+# that it is a prime number with the form 2^x - 1, where x is some exponent. For example:
+
+# 3 is a Mersenne prime because it is prime and 3 = 2^2 - 1
+# 7 is a Mersenne prime because it is prime and 7 = 2^3 - 1
+# 11 is not a Mersenne prime because although it is prime, it does not have the form 2^x - 1
+# The first three Mersenne primes are 3, 7, and 31. Write a method mersenne_prime that accepts 
+# a number, n, as an argument and returns the n-th Mersenne prime.
+
+def is_prime?(n)
+  return false if n < 2
+  (2...n).none? { |divisor| n % divisor == 0 }
+end
+
+def mersenne_prime(n)
+  tracker = 0
+  exponent = 2
+
+  while tracker < n
+    result = 2 ** exponent - 1
+
+    if is_prime?(result)
+      tracker += 1
+      return result if tracker == n
+    end
+
+    exponent += 1
+  end
+end
+
+# Examples
+
+# p mersenne_prime(1) # 3
+# p mersenne_prime(2) # 7
+# p mersenne_prime(3) # 31
+# p mersenne_prime(4) # 127
+# p mersenne_prime(6) # 131071
