@@ -221,7 +221,6 @@ end
 
 ##########################################################################################
 
-
 # convert_pig_latin
 # Write a method convert_pig_latin that accepts a sentence as an argument. The method should 
 # translate the sentence according to the following rules:
@@ -284,4 +283,73 @@ end
 # p convert_pig_latin('I cannot find the trash') # "I annotcay indfay ethay ashtray"
 # p convert_pig_latin('What an interesting problem') # "Atwhay an interestingyay oblempray"
 # p convert_pig_latin('Her family flew to France') # "Erhay amilyfay ewflay to Ancefray"
-# p convert_pig_latin('Our family flew to France') # "Ouryay amilyfay ewflay to Ancefray" 
+# p convert_pig_latin('Our family flew to France') # "Ouryay amilyfay ewflay to Ancefray"
+
+##########################################################################################
+
+# reverberate
+# Write a method reverberate that accepts a sentence as an argument. The method should translate 
+# the sentence according to the following rules:
+
+# words that are shorter than 3 characters are unchanged
+# words that are 3 characters or longer are translated according to the following rules:
+  # if the word ends with a vowel, simply repeat the word twice (example: 'like'->'likelike')
+  # if the word ends with a non-vowel, repeat all letters that come after the word's last vowel, 
+  # including the last vowel itself (example: 'trash'->'trashash')
+
+# Note that if words are capitalized in the original sentence, they should remain capitalized in 
+# the translated sentence. Vowels are the letters a, e, i, o, u.
+
+def repeat_word(word)
+  new_word = word + word
+
+  if word == word.capitalize
+    return new_word.capitalize
+  end
+
+  new_word
+end
+
+def echo_word(word)
+  vowels = "aeiou"
+
+  (word.length - 1).downto(0) do |i|
+    char = word[i]
+
+    if vowels.include?(char)
+      return word + word[i..-1]
+    end
+  end
+
+  word
+end
+
+def ends_with_vowel?(word)
+  vowels = "aeiou"
+  vowels.include?(word[-1])
+end
+
+def reverberate(sentence)
+  words = sentence.split(" ")
+
+  new_words = words.map do |word|
+    if word.length < 3
+      word
+    elsif ends_with_vowel?(word)
+      repeat_word(word)
+    else
+      echo_word(word)
+    end
+  end
+
+  new_words.join(" ")
+end
+
+# Examples
+
+# p reverberate('We like to go running fast') # "We likelike to go runninging fastast"
+# p reverberate('He cannot find the trash') # "He cannotot findind thethe trashash"
+# p reverberate('Pasta is my favorite dish') # "Pastapasta is my favoritefavorite dishish"
+# p reverberate('Her family flew to France') # "Herer familyily flewew to Francefrance"
+
+##########################################################################################
