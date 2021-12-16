@@ -365,21 +365,82 @@ end
 
 # Examples
 
-longer_four = Proc.new { |s| s.length > 4 }
-contains_o = Proc.new { |s| s.include?('o') }
-starts_a = Proc.new { |s| s[0] == 'a' }
+# longer_four = Proc.new { |s| s.length > 4 }
+# contains_o = Proc.new { |s| s.include?('o') }
+# starts_a = Proc.new { |s| s[0] == 'a' }
 
-p disjunct_select(['ace', 'dog', 'apple', 'teeming', 'boot', 'zip'],
-    longer_four,
-) # ["apple", "teeming"]
+# p disjunct_select(['ace', 'dog', 'apple', 'teeming', 'boot', 'zip'],
+#     longer_four,
+# ) # ["apple", "teeming"]
 
-p disjunct_select(['ace', 'dog', 'apple', 'teeming', 'boot', 'zip'],
-    longer_four,
-    contains_o
-) # ["dog", "apple", "teeming", "boot"]
+# p disjunct_select(['ace', 'dog', 'apple', 'teeming', 'boot', 'zip'],
+#     longer_four,
+#     contains_o
+# ) # ["dog", "apple", "teeming", "boot"]
 
-p disjunct_select(['ace', 'dog', 'apple', 'teeming', 'boot', 'zip'],
-    longer_four,
-    contains_o,
-    starts_a
-) # ["ace", "dog", "apple", "teeming", "boot"]  
+# p disjunct_select(['ace', 'dog', 'apple', 'teeming', 'boot', 'zip'],
+#     longer_four,
+#     contains_o,
+#     starts_a
+# ) # ["ace", "dog", "apple", "teeming", "boot"]
+
+##########################################################################################
+
+# alternating_vowel
+# Write a method alternating_vowel that accepts a sentence as an argument. The method should 
+# return a new sentence where the words alternate between having their first or last vowel removed. 
+# For example:
+
+# the 1st word should be missing its first vowel
+# the 2nd word should be missing its last vowel
+# the 3rd word should be missing its first vowel
+# the 4th word should be missing its last vowel
+# ... and so on
+# Note that words that contain no vowels should remain unchanged. Vowels are the letters a, e, i, o, u.
+
+def remove_first_vowel(word)
+  vowels = "aeiou"
+
+  word.each_char.with_index do |ch, i|
+    if vowels.include?(ch)
+      return word[0...i] + word[i + 1..-1]
+    end
+  end
+
+  word
+end
+
+def remove_last_vowel(word)
+  vowels = "aeiou"
+
+  (word.length - 1).downto(0) do |i|
+    ch = word[i]
+
+    if vowels.include?(ch)
+      return word[0...i] + word[i + 1..-1]
+    end
+  end
+
+  word
+end
+
+def alternating_vowel(sentence)
+  words = sentence.split(" ")
+  new_words = words.map.with_index do |word, i|
+    if i.even?
+      remove_first_vowel(word)
+    else
+      remove_last_vowel(word)
+    end
+  end
+
+  new_words.join(" ")
+end
+
+
+# Examples
+
+# p alternating_vowel('panthers are great animals') # "pnthers ar grat animls"
+# p alternating_vowel('running panthers are epic') # "rnning panthrs re epc"
+# p alternating_vowel('code properly please') # "cde proprly plase"
+# p alternating_vowel('my forecast predicts rain today') # "my forecst prdicts ran tday"
