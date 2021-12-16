@@ -105,3 +105,24 @@ end
 
 ##########################################################################################
 
+# triplet_true?
+# Write a method triplet_true? that accepts a string as an argument and returns a boolean 
+# indicating whether or not the string contains three of the same character consecutively.
+
+def triplet_true?(str)
+  (0...str.length - 2).each do |i|
+    if str[i] == str[i + 1] && str[i] == str[i + 2]
+      return true
+    end
+  end
+
+  false
+end
+
+# Examples
+
+# p triplet_true?('caaabb')        # true
+# p triplet_true?('terrrrrible')   # true
+# p triplet_true?('runninggg')     # true
+# p triplet_true?('bootcamp')      # false
+# p triplet_true?('e')             # false
