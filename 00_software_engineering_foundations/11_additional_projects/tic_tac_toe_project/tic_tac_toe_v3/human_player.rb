@@ -5,19 +5,23 @@ class HumanPlayer
     @mark = mark
   end
 
-  def get_position
-    num_chars = " 0123456789"
+  def get_position(legal_positions)
+    prompt = "Player #{mark}, enter two numbers " + 
+    "representing a position in the format `row col`"
+    puts prompt
+    puts
+    pos = nil
+    
+    until legal_positions.include?(pos)
+      pos = gets.chomp.split(" ").map(&:to_i)
 
-    puts "Player #{mark}, enter two numbers representing a position in the format `row col`"
-
-    input = gets.chomp
-    pos = input.split(" ")
-    valid_chars = input.split("").all? { |ch| num_chars.include?(ch) }
-
-    unless pos.length == 2 && valid_chars
-      raise "sorry, that was invalid :("
+      unless legal_positions.include?(pos)
+        puts "Invalid position"
+        puts prompt
+        puts
+      end
     end
 
-    pos.map(&:to_i)
+    pos
   end
 end
