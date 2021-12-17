@@ -77,4 +77,16 @@ class Board
 
     [upward, downward]
   end
+
+  def board_positions
+    positions = []
+
+    (0...@grid.length).map do |row|
+      (0...@grid.length).map do |col|
+        positions << [row, col]
+      end
+    end
+
+    positions
+  end
 end
