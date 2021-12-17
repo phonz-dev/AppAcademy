@@ -1,6 +1,6 @@
 class Board
-  def initialize
-    @grid = Array.new(3) { Array.new(3, "_") }
+  def initialize(n)
+    @grid = Array.new(n) { Array.new(n, "_") }
   end
 
   def [](pos)
@@ -15,7 +15,8 @@ class Board
 
   def valid?(pos)
     row, col = pos
-    (row < 3 && row >= 0) && (col < 3 && col >=0)
+    len = @grid.length
+    (row < len && row >= 0) && (col < len && col >=0)
   end
 
   def empty?(pos)
@@ -55,7 +56,8 @@ class Board
   end
 
   def empty_positions?
-    (0..2).any? { |row| (0..2).any? { |col| self.empty?([row, col]) } }
+    len = @grid.length
+    (0...len).any? { |row| (0...len).any? { |col| self.empty?([row, col]) } }
   end
 
   def get_diagonals
