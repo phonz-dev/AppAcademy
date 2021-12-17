@@ -54,6 +54,10 @@ class Board
     win_row?(mark, diagonals)
   end
 
+  def empty_positions?
+    (0..2).any? { |row| (0..2).any? { |col| self.empty?([row, col]) } }
+  end
+
   def get_diagonals
     upward = []
     downward = []
