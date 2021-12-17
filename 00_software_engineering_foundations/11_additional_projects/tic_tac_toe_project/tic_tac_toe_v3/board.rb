@@ -3,16 +3,6 @@ class Board
     @grid = Array.new(n) { Array.new(n, "_") }
   end
 
-  def [](pos)
-    row, col = pos
-    @grid[row][col]
-  end
-
-  def []=(pos, mark)
-    row, col = pos
-    @grid[row][col] = mark
-  end
-
   def valid?(pos)
     row, col = pos
     len = @grid.length
@@ -78,6 +68,11 @@ class Board
     [upward, downward]
   end
 
+  def legal_positions
+    positions = self.board_positions
+    positions.select { |pos| self.empty?(pos) }
+  end
+
   def board_positions
     positions = []
 
@@ -88,5 +83,17 @@ class Board
     end
 
     positions
+  end
+
+  private
+
+  def [](pos)
+    row, col = pos
+    @grid[row][col]
+  end
+
+  def []=(pos, mark)
+    row, col = pos
+    @grid[row][col] = mark
   end
 end
