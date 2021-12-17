@@ -47,8 +47,10 @@ class Array
   end
 
   def my_zip(*args)
-    zipped = Array.new(self.length) do
-      Array.new(args.length + 1)
+    all_arrays = [self, *args]
+
+    (0...self.length).map do |i|
+      (0..args.length).map { |j| all_arrays[j][i] }
     end
   end
 end
