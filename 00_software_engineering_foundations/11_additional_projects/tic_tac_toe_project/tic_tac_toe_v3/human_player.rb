@@ -16,7 +16,7 @@ class HumanPlayer
       pos = gets.chomp.split(" ").map(&:to_i)
 
       unless legal_positions.include?(pos)
-        puts "Invalid position"
+        puts "#{pos} is not a legal position"
         puts prompt
         puts
       end
