@@ -45,4 +45,11 @@ class Array
 
     flattened
   end
+
+  def my_zip(*args)
+    zipped = Array.new(self.length) do
+      Array.new(args.length + 1)
+    end
+  end
 end
+
