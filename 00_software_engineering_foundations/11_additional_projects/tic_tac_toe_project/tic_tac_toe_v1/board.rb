@@ -29,4 +29,8 @@ class Board
 
     self[pos] = mark
   end
+
+  def print
+    @grid.each { |row| puts row.join(" ") }
+  end
 end
