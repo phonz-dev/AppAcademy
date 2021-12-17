@@ -31,4 +31,18 @@ class Array
     self.my_each { |el| return false unless prc.call(el) }
     true
   end
+
+  def my_flatten
+    flattened = []
+
+    self.my_each do |el|
+      if el.is_a?(Array)
+        flattened.concat(el.my_flatten)
+      else
+        flattened << el
+      end
+    end
+
+    flattened
+  end
 end
