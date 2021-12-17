@@ -1,9 +1,18 @@
 require_relative "./board.rb"
 require_relative "./human_player.rb"
+require_relative "./computer_player.rb"
 
 class Game
-  def initialize(size, *player_marks)
-    @players = player_marks.map { |mark| HumanPlayer.new(mark) }
+  def initialize(size, players)
+    @players = players.to_a.map do |player|
+      mark, type = player
+
+      if type
+        ComputerPlayer.new(mark)
+      else
+        HumanPlayer.new(mark)
+      end
+    end
     @board = Board.new(size)
     @current_player = @players.first
   end
@@ -16,7 +25,7 @@ class Game
   def play
     while @board.empty_positions?
       @board.print
-      pos = @current_player.get_position
+      pos = @current_player.get_position(@board.legal_positions)
       mark = @current_player.mark
       @board.place_mark(pos, mark)
 
