@@ -10,7 +10,7 @@ class Player
     input = gets.chomp
 
     unless alphabet.include?(input)
-      raise self.alert_invalid_guess
+      puts self.alert_invalid_guess
     end
 
     input
