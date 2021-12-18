@@ -30,3 +30,25 @@ end
 def doubler(nums)
   nums.map { |num| num * 2 }
 end
+
+class Array
+  def bubble_sort!(&prc)
+    prc ||= Proc.new { |a, b| a <=> b }
+
+    not_sorted = true
+
+    while not_sorted
+      not_sorted = false
+
+      (0...self.length - 1).each do |i|
+        if prc.call(self[i], self[i + 1]) == 1
+          self[i], self[i + 1] = self[i + 1], self[i]
+          not_sorted = true
+        end
+      end
+    end
+
+    self
+  end
+
+end
