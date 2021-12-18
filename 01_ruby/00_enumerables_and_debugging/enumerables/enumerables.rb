@@ -57,4 +57,16 @@ class Array
   def my_rotate(turns = 1)
     self.drop(turns % self.length) + self.take(turns % self.length)
   end
+
+  def my_join(separator = "")
+    joined = ""
+    self.each_with_index do |el, i|
+      if i == self.length - 1
+        joined += el.to_s
+      else
+        joined += el.to_s + separator
+      end
+    end
+    joined
+  end
 end
