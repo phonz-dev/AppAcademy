@@ -55,6 +55,11 @@ class GhostGame
 
     alphabet.include?(str) && valid_fragment
   end
+
+  def record(player)
+    losses = @losses[player]
+    "GHOST"[0...losses]
+  end
 end
 
 if __FILE__ == $PROGRAM_NAME
