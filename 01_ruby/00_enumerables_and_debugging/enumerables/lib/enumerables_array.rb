@@ -80,3 +80,7 @@ class Array
     acc
   end
 end
+
+def concatenate(strings)
+  strings.inject("") { |acc, str| acc += str }
+end
