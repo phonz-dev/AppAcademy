@@ -38,6 +38,10 @@ class GhostGame
     @losses[self.current_player] += 1
   end
 
+  def game_over?
+    @losses.values.any? { |value| value == 5 }
+  end
+
   def take_turn(player)
     guess = ""
 
