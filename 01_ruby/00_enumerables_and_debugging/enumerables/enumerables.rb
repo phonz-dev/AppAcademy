@@ -69,4 +69,16 @@ class Array
     end
     joined
   end
+
+  def my_reverse
+    reversed = []
+    i = self.length - 1
+
+    while i >= 0
+      reversed << self[i]
+      i -= 1
+    end
+
+    reversed
+  end
 end
