@@ -71,4 +71,12 @@ class Array
     self.my_each { |el| selected << el if prc.call(el) }
     selected
   end
+
+  def my_inject(&prc)
+    acc = self[0]
+    (1...self.length).each do |i|
+      acc = prc.call(acc, self[i])
+    end
+    acc
+  end
 end
