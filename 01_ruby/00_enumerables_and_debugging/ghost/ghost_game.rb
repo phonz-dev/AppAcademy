@@ -1,12 +1,14 @@
 require "set"
 
+require_relative "./player.rb"
+
 class GhostGame
   attr_reader :players
 
   def initialize(*players)
     file = File.open("dictionary.txt")
-    @dictionary ||= file.readlines.map(&:chomp).to_set
-    @players = players
+    @dictionary = file.readlines.map(&:chomp).to_set
+    @players = players.map { |player| Player.new(player) }
     @fragment = ""
   end
 
@@ -22,6 +24,17 @@ class GhostGame
     @players = @players.rotate!
   end
 
+  def take_turn(player)
+    guess = ""
+
+    until self.valid_play?(guess)
+      puts "#{player.name}, give me a letter.."
+      guess = player.guess
+    end
+
+    @dictionary.include?(guess)
+  end
+
   def valid_play?(str)
     alphabet = ("a".."z").to_set
     possible_word = @fragment + str
@@ -33,7 +46,10 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   game = GhostGame.new("Dave", "Sarah")
-
+  dave = Player.new("Dave")
+  game.take_turn(dave)
+  
+  # p game
   # p game.valid_play?("z")
 end
 
