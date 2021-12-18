@@ -3,8 +3,6 @@ require "set"
 require_relative "./player.rb"
 
 class GhostGame
-  attr_reader :players, :losses
-
   def initialize(*players)
     file = File.open("dictionary.txt")
     @dictionary = file.readlines.map(&:chomp).to_set
@@ -15,42 +13,56 @@ class GhostGame
     end
   end
 
-  def current_player
-    @players.first
-  end
-
-  def previous_player
-    @players.last
-  end
-
-  def next_player!
-    @players = @players.rotate!
-  end
-
   def run
     until self.game_over?
       self.display_standings
       self.play_round
     end
+
+    self.print_winner
   end
-  
+
+  private
+
   def play_round
     @fragment = ""
+
     until self.take_turn(self.current_player)
       self.print_dashes
       puts "CURRENT FRAGMENT: #{@fragment}"
       self.next_player!
     end
     
-    puts "#{@fragment.upcase} is a word!"
-    puts "#{self.current_player.name} gets a letter!"
-    self.print_dashes
-    @losses[self.current_player] += 1
+    self.print_post_round_message
+    self.update_current_player_losses
+    self.check_for_elimination
     self.next_player!
   end
 
-  def game_over?
-    @losses.values.any? { |value| value == 5 }
+  def print_post_round_message
+    puts "--> #{@fragment} is a word!"
+    puts "--> #{self.current_player.name} gets a letter!"
+    self.print_dashes
+  end
+
+  def print_winner
+    winner = @losses.select { |k, v| v < 5 }.keys.first
+    puts "GAME OVER!"
+    puts "👏👏👏 " + winner.name + " wins the game! 👏👏👏"
+  end
+
+  def check_for_elimination
+    if @losses[self.current_player] >= 5
+      self.print_elimination_message
+    end
+  end
+
+  def print_elimination_message
+    puts "#{self.current_player.name} has been eliminated! 😬"
+  end
+
+  def update_current_player_losses
+    @losses[self.current_player] += 1
   end
 
   def take_turn(player)
@@ -73,11 +85,27 @@ class GhostGame
     alphabet.include?(str) && valid_fragment
   end
 
+  def current_player
+    @players.first
+  end
+
+  def next_player!
+    @players = @players.rotate!
+
+    if @losses[self.current_player] == 5
+      @players = @players.rotate! until @losses[self.current_player] < 5
+    end
+  end
+
+  def game_over?
+    @losses.values.one? { |value| value < 5 }
+  end
+
   def display_standings
     self.print_dashes
     puts "PLAYER".ljust(10) + "LOSSES".ljust(10) + "LETTERS"
     self.print_dashes
-    
+
     @players.each do |player|
       name = player.name.capitalize
       losses = @losses[player].to_s
@@ -99,8 +127,5 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   game = GhostGame.new("Dave", "Sarah")
-  # game.display_standings
   game.run
-  # game.play_round
 end
-
