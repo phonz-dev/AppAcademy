@@ -34,6 +34,8 @@ class GhostGame
       puts "CURRENT FRAGMENT: #{@fragment}"
       self.next_player!
     end
+
+    @losses[self.current_player] += 1
   end
 
   def take_turn(player)
@@ -65,6 +67,6 @@ end
 if __FILE__ == $PROGRAM_NAME
   game = GhostGame.new("Dave", "Sarah")
   # p game.losses
-  # game.play_round
+  game.play_round
 end
 
