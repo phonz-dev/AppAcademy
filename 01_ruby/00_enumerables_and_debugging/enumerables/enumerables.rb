@@ -53,5 +53,8 @@ class Array
       (0..args.length).map { |j| all_arrays[j][i] }
     end
   end
-end
 
+  def my_rotate(turns = 1)
+    self.drop(turns % self.length) + self.take(turns % self.length)
+  end
+end
