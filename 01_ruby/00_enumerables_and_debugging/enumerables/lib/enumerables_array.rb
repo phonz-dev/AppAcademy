@@ -55,4 +55,14 @@ class Array
     self.dup.bubble_sort!(&prc)
   end
 
+  def my_each(&prc)
+    self.length.times { |i| prc.call(self[i]) }
+    self
+  end
+
+  def my_map(&prc)
+    mapped = []
+    self.length.times { |i| mapped << prc.call(self[i]) }
+    mapped
+  end
 end
