@@ -24,6 +24,14 @@ class GhostGame
     @players = @players.rotate!
   end
 
+  def play_round
+    until self.take_turn(self.current_player)
+      puts "-----------------------------"
+      puts "CURRENT FRAGMENT: #{@fragment}"
+      self.next_player!
+    end
+  end
+
   def take_turn(player)
     guess = ""
 
@@ -32,7 +40,8 @@ class GhostGame
       guess = player.guess
     end
 
-    @dictionary.include?(guess)
+    @fragment += guess
+    @dictionary.include?(@fragment)
   end
 
   def valid_play?(str)
@@ -46,10 +55,7 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   game = GhostGame.new("Dave", "Sarah")
-  dave = Player.new("Dave")
-  game.take_turn(dave)
-  
-  # p game
-  # p game.valid_play?("z")
+
+  game.play_round
 end
 
