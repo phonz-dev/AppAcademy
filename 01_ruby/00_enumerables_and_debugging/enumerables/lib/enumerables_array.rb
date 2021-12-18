@@ -65,4 +65,10 @@ class Array
     self.length.times { |i| mapped << prc.call(self[i]) }
     mapped
   end
+
+  def my_select(&prc)
+    selected = []
+    self.my_each { |el| selected << el if prc.call(el) }
+    selected
+  end
 end
