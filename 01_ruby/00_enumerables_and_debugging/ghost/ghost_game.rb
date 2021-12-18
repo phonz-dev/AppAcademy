@@ -21,14 +21,19 @@ class GhostGame
   def next_player!
     @players = @players.rotate!
   end
+
+  def valid_play?(str)
+    alphabet = ("a".."z").to_set
+    possible_word = @fragment + str
+    valid_fragment = @dictionary.any? { |word| word.start_with?(possible_word) }
+
+    alphabet.include?(str) && valid_fragment
+  end
 end
 
 if __FILE__ == $PROGRAM_NAME
   game = GhostGame.new("Dave", "Sarah")
 
-  p game
-
-  # p game.current_player
-  # game.next_player!
-  # p game.current_player
+  # p game.valid_play?("z")
 end
+
