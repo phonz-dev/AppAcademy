@@ -28,20 +28,23 @@ class GhostGame
   end
 
   def run
-    self.play_round until self.game_over?
+    until self.game_over?
+      self.display_standings
+      self.play_round
+    end
   end
   
   def play_round
     @fragment = ""
     until self.take_turn(self.current_player)
-      puts "-----------------------------"
+      puts "----------------------------"
       puts "CURRENT FRAGMENT: #{@fragment}"
       self.next_player!
     end
     
     puts "#{@fragment.upcase} is a word!"
     puts "#{self.current_player.name} gets a letter!"
-    puts "-----------------------------"
+    puts "----------------------------"
     @losses[self.current_player] += 1
     self.next_player!
   end
@@ -70,6 +73,19 @@ class GhostGame
     alphabet.include?(str) && valid_fragment
   end
 
+  def display_standings
+    puts "----------------------------"
+    puts "PLAYER".ljust(10) + "LOSSES".ljust(10) + "LETTERS"
+    puts "----------------------------"
+    @players.each do |player|
+      name = player.name.capitalize
+      losses = @losses[player].to_s
+      letters = self.record(player)
+      puts name.ljust(10) +  losses.ljust(10) + letters
+    puts "----------------------------"
+    end
+  end
+
   def record(player)
     losses = @losses[player]
     "GHOST"[0...losses]
@@ -78,7 +94,7 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   game = GhostGame.new("Dave", "Sarah")
-  # p game.losses
+  # game.display_standings
   game.run
   # game.play_round
 end
