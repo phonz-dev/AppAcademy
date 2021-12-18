@@ -3,12 +3,16 @@ require "set"
 require_relative "./player.rb"
 
 class GhostGame
-  attr_reader :players
+  attr_reader :players, :losses
 
   def initialize(*players)
     file = File.open("dictionary.txt")
     @dictionary = file.readlines.map(&:chomp).to_set
     @players = players.map { |player| Player.new(player) }
+    @losses = @players.inject({}) do |losses, player|
+      losses[player] = 0
+      losses
+    end
     @fragment = ""
   end
 
@@ -55,7 +59,7 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   game = GhostGame.new("Dave", "Sarah")
-
-  game.play_round
+  # p game.losses
+  # game.play_round
 end
 
