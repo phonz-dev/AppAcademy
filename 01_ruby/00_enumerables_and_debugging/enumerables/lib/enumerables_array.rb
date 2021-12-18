@@ -26,3 +26,7 @@ def get_substrings(string)
 
   substrings
 end
+
+def doubler(nums)
+  nums.map { |num| num * 2 }
+end
