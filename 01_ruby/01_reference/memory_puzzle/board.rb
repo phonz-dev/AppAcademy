@@ -37,6 +37,10 @@ class Board
     nil
   end
 
+  def won?
+    @grid.all? { |row| row.all?(&:face_up?) }
+  end
+
   def pair_positions
     pair_positions = []
     positions = self.board_positions.shuffle
