@@ -28,7 +28,12 @@ class Board
       value = pair_values[i]
       self[pos_1], self[pos_2] = Card.new(value), Card.new(value)
     end
-    
+
+    nil
+  end
+
+  def render
+    @grid.each { |row| puts row.map(&:to_s).join(" ") }
     nil
   end
 
