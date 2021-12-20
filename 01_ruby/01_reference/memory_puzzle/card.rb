@@ -1,8 +1,8 @@
 class Card
   attr_accessor :value
 
-  def initialize
-    @value, @face_up =  nil, false
+  def initialize(value = nil)
+    @value, @face_up =  value, false
   end
 
   def flip
