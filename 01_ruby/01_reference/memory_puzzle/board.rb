@@ -1,5 +1,3 @@
-require "byebug"
-
 require_relative "./card.rb"
 
 class Board
@@ -17,6 +15,21 @@ class Board
   def []=(pos, value)
     row, col = pos
     @grid[row][col] = value
+  end
+
+  def valid_position?(pos)
+    return false unless pos.length == 2
+    self.all_nums?(pos) && self.within_bounds?(pos)
+  end
+
+  def all_nums?(pos)
+    valid_nums = (0..9).to_a
+    pos.all? { |el| valid_nums.include?(el) }
+  end
+
+  def within_bounds?(pos)
+    valid_nums = (0...@grid.length).to_a
+    pos.all? { |el| valid_nums.include?(el) }
   end
 
   def populate
