@@ -41,6 +41,12 @@ class Board
     @grid.all? { |row| row.all?(&:face_up?) }
   end
 
+  def reveal(guessed_pos)
+    card = self[guessed_pos]
+    card.flip unless card.face_up?
+    card.value
+  end
+
   def pair_positions
     pair_positions = []
     positions = self.board_positions.shuffle
