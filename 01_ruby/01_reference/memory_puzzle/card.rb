@@ -1,8 +1,8 @@
 class Card
-  attr_reader :value
+  attr_accessor :value
 
-  def initialize(value)
-    @value, @face_up =  value, false
+  def initialize
+    @value, @face_up =  nil, false
   end
 
   def flip
