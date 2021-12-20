@@ -24,4 +24,8 @@ class Card
   def to_s
     self.face_up? ? @value : " "
   end
+
+  def ==(other_card)
+    self.value == other_card.value
+  end
 end
