@@ -1,7 +1,9 @@
 require_relative "./board.rb"
+require_relative "./human_player.rb"
 
 class Game
-  def initialize
+  def initialize(player)
+    @player = player
     @board = Board.new
     @previous_guess = nil
   end
@@ -49,8 +51,8 @@ class Game
 
     until @board.valid_position?(pos)
       self.reset_display
-      self.prompt
-      pos = gets.chomp.split(",")
+      @player.prompt
+      pos = @player.get_input
       
       unless @board.valid_position?(pos)
         self.reset_display
@@ -73,9 +75,5 @@ class Game
   def reset_display
     system("clear")
     @board.render
-  end
-
-  def prompt
-    print "Please enter the position of the card you'd like to flip (e.g., '2,3') \n> "
   end
 end
