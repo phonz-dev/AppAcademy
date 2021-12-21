@@ -17,21 +17,6 @@ class Board
     @grid[row][col] = value
   end
 
-  def valid_position?(pos)
-    return false unless pos.length == 2
-    self.all_nums?(pos) && self.within_bounds?(pos)
-  end
-
-  def all_nums?(pos)
-    valid_nums = (0..9).to_a
-    pos.all? { |el| valid_nums.include?(el) }
-  end
-
-  def within_bounds?(pos)
-    valid_nums = (0...@grid.length).to_a
-    pos.all? { |el| valid_nums.include?(el) }
-  end
-
   def populate
     pair_positions = self.pair_positions
     pair_values = VALUES.sample(pair_positions.length)
@@ -89,5 +74,25 @@ class Board
     end
 
     positions
+  end
+
+  def valid_position?(pos)
+    return false unless pos.is_a?(Array)
+    return false unless pos.length == 2
+    self.all_num_chars?(pos) && self.within_bounds?(pos)
+  end
+
+  def all_num_chars?(pos)
+    valid_nums = ("0".."9").to_a
+    pos.all? { |el| valid_nums.include?(el) }
+  end
+
+  def within_bounds?(pos)
+    valid_nums = ("0"...@grid.length.to_s).to_a
+    pos.all? { |el| valid_nums.include?(el) }
+  end
+
+  def print_position_error_message
+    puts "Invalid position."
   end
 end
