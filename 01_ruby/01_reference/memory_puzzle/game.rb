@@ -10,10 +10,7 @@ class Game
     @board.populate
     
     until @board.won?
-      system("clear")
-      @board.render
-      self.prompt
-      pos = gets.chomp.split(",").map(&:to_i)
+      pos = self.parse_position
       self.make_guess(pos)
       sleep(1.5)
     end
@@ -24,10 +21,9 @@ class Game
   private
   def make_guess(current_guess)
     return if @board[current_guess].face_up?
-
-    system("clear")
+    
     @board.reveal(current_guess)
-    @board.render
+    self.reset_display
 
     if self.first_guess?
       @previous_guess = current_guess
@@ -48,12 +44,35 @@ class Game
     end
   end
 
+  def parse_position(guess_pos = nil)
+    pos = guess_pos
+
+    until @board.valid_position?(pos)
+      self.reset_display
+      self.prompt
+      pos = gets.chomp.split(",")
+      
+      unless @board.valid_position?(pos)
+        self.reset_display
+        @board.print_position_error_message
+        sleep(1.5)
+      end
+    end
+
+    pos.map(&:to_i)
+  end
+
   def reset_previous_guess
     @previous_guess = nil
   end
 
   def first_guess?
     @previous_guess.nil?
+  end
+
+  def reset_display
+    system("clear")
+    @board.render
   end
 
   def prompt
