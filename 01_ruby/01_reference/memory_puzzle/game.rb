@@ -37,7 +37,7 @@ class Game
   end
 
   def parse_guesses(guess_1, guess_2)
-    if @board[guess_1] == @board[guess_2]
+    if self.match?(guess_1, guess_2)
       puts "It's a match!"
     else
       puts "Try again."
@@ -70,6 +70,10 @@ class Game
 
   def first_guess?
     @previous_guess.nil?
+  end
+
+  def match?(pos_1, pos_2)
+    @board[pos_1] == @board[pos_2]
   end
 
   def reset_display
