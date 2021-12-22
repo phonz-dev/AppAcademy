@@ -167,3 +167,31 @@ end
 # p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
 # p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
 # p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
+
+#############################################################################
+
+# Merge Sort
+# Implement a method merge_sort that sorts an Array
+
+def merge_sort(nums)
+  return nums if nums.length < 2
+
+  half = nums.length / 2
+  left, right = nums.take(half), nums.drop(half)
+  sorted_left, sorted_right = merge_sort(left), merge_sort(right)
+
+  merge(sorted_left, sorted_right)
+end
+
+def merge(left, right)
+  merged = []
+
+  until left.empty? || right.empty? 
+    smallest_num = left.first < right.first ? left.shift : right.shift
+    merged << smallest_num
+  end
+
+  merged + left + right
+end
+
+#############################################################################
