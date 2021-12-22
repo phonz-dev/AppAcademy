@@ -1,6 +1,8 @@
 require_relative "./tile.rb"
 
 class Board
+  VALUES = (1..9).to_a
+
   def self.empty_board
     Array.new(9) do
       Array.new(9) { Tile.new(0) }
@@ -37,5 +39,13 @@ class Board
       puts "#{i} #{row.map(&:to_s).join(" ")}"
     end
     nil
+  end
+
+  def rows_complete?
+    tile_values.all? { |row| VALUES.all? { |val| row.include?(val) } }
+  end
+
+  def tile_values
+    @grid.map { |row| row.map { |tile| tile.value } }
   end
 end
