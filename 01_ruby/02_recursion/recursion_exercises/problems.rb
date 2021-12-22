@@ -76,3 +76,23 @@ end
 
 #############################################################################
 
+# Using recursion and the is_a? method, write an Array#deep_dup method that will 
+# perform a "deep" duplication of the interior arrays.
+
+class Array
+  def deep_dup
+    new_array = []
+
+    self.each do |el|
+      if el.is_a?(Array)
+        new_array << [*el.deep_dup]
+      else
+        new_array << el
+      end
+    end
+
+    new_array
+  end
+end
+
+#############################################################################
