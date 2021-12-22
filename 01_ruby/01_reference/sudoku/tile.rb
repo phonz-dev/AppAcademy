@@ -13,7 +13,7 @@ class Tile
   end
 
   def to_s
-    @given ? @value.to_s.colorize(color) : " "
+    value == 0 ? " " : value.to_s.colorize(color)
   end
 
   def value=(new_value)
