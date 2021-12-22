@@ -19,4 +19,15 @@ class Board
   def initialize(grid = Board.empty_board)
     @grid = grid
   end
+
+  def [](pos)
+    row, col = pos
+    @grid[row][col]
+  end
+
+  def []=(pos, new_value)
+    row, col = pos
+    tile = self[pos]
+    tile.value = new_value
+  end
 end
