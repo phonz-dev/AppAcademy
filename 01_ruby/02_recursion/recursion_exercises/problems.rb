@@ -1,3 +1,5 @@
+require "byebug"
+
 # Write a recursive method, range, that takes a start and an end and returns 
 # an array of all numbers in that range, exclusive. For example, range(1, 5) 
 # should return [1, 2, 3, 4]. If end < start, you can return an empty array.
@@ -138,3 +140,30 @@ end
 
 #############################################################################
 
+# Write a recursive binary search: bsearch(array, target). Note that binary search 
+# only works on sorted arrays. Make sure to return the location of the found object 
+# (or nil if not found!). Hint: you will probably want to use subarrays.
+
+def bsearch(array, target, low = 0, high = array.length - 1)
+  return nil if low > high
+
+  mid = (low + high) / 2
+
+  if target == array[mid]
+    return mid
+  elsif target < array[mid]
+    bsearch(array, target, low, mid - 1)
+  else
+    bsearch(array, target, mid + 1, high)
+  end
+end
+
+# Make sure that these test cases are working:
+
+# p bsearch([1, 2, 3], 1) # => 0
+# p bsearch([2, 3, 4, 5], 3) # => 1
+# p bsearch([2, 4, 6, 8, 10], 6) # => 2
+# p bsearch([1, 3, 4, 5, 9], 5) # => 3
+# p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
+# p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
+# p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
