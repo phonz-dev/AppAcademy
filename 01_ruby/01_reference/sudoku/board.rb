@@ -30,4 +30,12 @@ class Board
     tile = self[pos]
     tile.value = new_value
   end
+
+  def render
+    puts "  #{(0...@grid.length).to_a.join(" ")}"
+    @grid.each_with_index do |row, i|
+      puts "#{i} #{row.map(&:to_s).join(" ")}"
+    end
+    nil
+  end
 end
