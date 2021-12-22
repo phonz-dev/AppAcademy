@@ -41,8 +41,15 @@ class Board
     nil
   end
 
-  def rows_complete?
-    tile_values.all? { |row| VALUES.all? { |val| row.include?(val) } }
+  def rows_complete?(grid = self.tile_values)
+    grid.all? do |row|
+      VALUES.all? { |val| row.include?(val) }
+    end
+  end
+
+  def columns_complete?(grid = self.tile_values)
+    transposed = grid.transpose
+    self.rows_complete?(transposed)
   end
 
   def tile_values
