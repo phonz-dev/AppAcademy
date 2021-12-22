@@ -2,6 +2,11 @@
 # an array of all numbers in that range, exclusive. For example, range(1, 5) 
 # should return [1, 2, 3, 4]. If end < start, you can return an empty array.
 
+def range(start_num, end_num)
+  return [] if start_num >= end_num
+  [start_num, *range(start_num + 1, end_num)]
+end
+
 
 # p range(1, 5) #=> [1, 2, 3, 4]
 
