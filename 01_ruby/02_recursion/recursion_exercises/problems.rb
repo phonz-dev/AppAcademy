@@ -33,3 +33,46 @@ end
 
 #############################################################################
 
+# Exponentiation
+# Write two versions of exponent that use two different recursions:
+
+# this is math, not Ruby methods.
+
+# recursion 1
+# exp(b, 0) = 1
+# exp(b, n) = b * exp(b, n - 1)
+
+# recursion 2
+# exp(b, 0) = 1
+# exp(b, 1) = b
+# exp(b, n) = exp(b, n / 2) ** 2             [for even n]
+# exp(b, n) = b * (exp(b, (n - 1) / 2) ** 2) [for odd n]
+
+def exponent_one(base, power)
+  return 1 if power.zero?
+  base * exponent(base, power - 1)
+end
+
+def exponent_two(base, power)
+  return 1 if power.zero?
+  return base if power == 1
+
+  if power.even?
+    result = exponent_two(base, power / 2)
+    square(result)
+  else
+    result = exponent_two(base, (power - 1) / 2)
+    base * square(result)
+  end
+end
+
+def square(num)
+  num * num
+end
+
+# p exponent_two(3, 0) #=> 1
+# p exponent_two(5, 2) #=> 25
+# p exponent_two(3, 3) #=> 27
+
+#############################################################################
+
