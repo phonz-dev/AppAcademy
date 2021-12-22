@@ -96,3 +96,45 @@ class Array
 end
 
 #############################################################################
+
+# Fibonacci
+# Write a recursive and an iterative Fibonacci method. The method should take in 
+# an integer n and return the first n Fibonacci numbers in an array.
+
+# You shouldn't have to pass any arrays between methods; you should be able to do 
+# this just passing a single argument for the number of Fibonacci numbers requested.
+
+def iterative_fib(n)
+  seq = [0, 1]
+
+  while seq.length < n
+    next_seq = seq[-1] + seq[-2]
+    seq << next_seq
+  end
+
+  seq[0...n]
+end
+
+# p iterative_fib(0) #=> []
+# p iterative_fib(2) #=> [0, 1]
+# p iterative_fib(3) #=> [0, 1, 1]
+# p iterative_fib(5) #=> [0, 1, 1, 2, 3]
+
+def recursive_fib(n)
+  return [] if n.zero?
+  return [0] if n == 1
+  return [0, 1] if n == 2
+
+  seq = recursive_fib(n - 1)
+  next_seq = seq[-1] + seq[-2]
+  seq << next_seq
+  seq
+end
+
+# p recursive_fib(0) #=> []
+# p recursive_fib(2) #=> [0, 1]
+# p recursive_fib(3) #=> [0, 1, 1]
+# p recursive_fib(5) #=> [0, 1, 1, 2, 3]
+
+#############################################################################
+
