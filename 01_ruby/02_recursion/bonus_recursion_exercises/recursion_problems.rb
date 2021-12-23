@@ -8,6 +8,9 @@ end
 #Problem 2: 
 
 def includes?(array, target)
+  return false if array.empty?
+  return true if array.first == target
+  includes?(array[1..-1], target)
 end
 
 # Problem 3: 
