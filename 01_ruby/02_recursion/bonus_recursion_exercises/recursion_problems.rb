@@ -25,6 +25,9 @@ end
 # Problem 4: 
 
 def add_to_twelve?(array)
+  return false if array.length < 2
+  return true if array[0] + array[1] == 12
+  add_to_twelve?(array[1..-1])
 end
 
 # Problem 5: 
