@@ -9,9 +9,22 @@ class WordChainer
     @current_words = [source]
     @all_seen_words = { source => nil }
 
-    until @current_words.empty?
+    until @current_words.empty? || @all_seen_words.include?(target)
       explore_current_words
     end
+
+    build_path(target)
+  end
+
+  def build_path(target)
+    path = [target]
+    
+    until @all_seen_words[path.first].nil?
+      prev = @all_seen_words[path.first]
+      path.unshift(prev)
+    end
+
+    path
   end
 
   def explore_current_words
@@ -27,55 +40,25 @@ class WordChainer
       end
     end
 
-    new_current_words.each do |word|
-      puts "#{word} => #{@all_seen_words[word]}"
-    end
     @current_words = new_current_words
   end
 
   def adjacent_words(word)
-    adjacent_words = Set.new
+    adjacent_words = []
 
-    @dictionary.each do |dict_word|
-      if one_letter_difference?(word, dict_word)
-        adjacent_words.add(dict_word)
+    word.each_char.with_index do |old_letter, i|
+      ("a".."z").each do |new_letter|
+        next if old_letter == new_letter
+        new_word = word.dup
+        new_word[i] = new_letter
+        adjacent_words << new_word if @dictionary.include?(new_word)
       end
     end
 
     adjacent_words
   end
-
-  def one_letter_difference?(word_1, word_2)
-    return false unless word_1.length == word_2.length
-    same_letters_count = count_same_letters(word_1, word_2)
-
-    # same letters count for both words must be word length - 1
-    same_letters_count == word_1.length - 1
-  end
-
-  def get_letters_count(word)
-    word.split("").inject(Hash.new(0)) do |count, ch|
-      count[ch] += 1
-      count
-    end
-  end
-  
-  def count_same_letters(word_1, word_2)
-    counts_1 = get_letters_count(word_1)
-    counts_2 = get_letters_count(word_2)
-    same_count = 0
-  
-    counts_1.each do |ch, count|
-      if count == counts_2[ch]
-        same_count += 1
-      end
-    end
-  
-    same_count
-  end
 end
 
 if __FILE__ == $PROGRAM_NAME
-  w = WordChainer.new("dictionary.txt")
-  p w.run("cat", "bat")
+  puts WordChainer.new("dictionary.txt").run(ARGV[0], ARGV[1])
 end
