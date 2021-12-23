@@ -33,6 +33,9 @@ end
 # Problem 5: 
 
 def sorted?(array)
+  return true if array.length < 2
+  return false if array[0] > array[1]
+  sorted?(array[1..-1])
 end
 
 # Problem 6: 
