@@ -1,6 +1,8 @@
 #Problem 1: 
 
 def sum_recur(array)
+  return 0 if array.empty?
+  array.first + sum_recur(array[1..-1])
 end
 
 #Problem 2: 
