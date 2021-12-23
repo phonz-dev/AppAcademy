@@ -41,4 +41,6 @@ end
 # Problem 6: 
 
 def reverse(string)
+  return "" if string.empty?
+  string[-1] + reverse(string[0...-1])
 end
