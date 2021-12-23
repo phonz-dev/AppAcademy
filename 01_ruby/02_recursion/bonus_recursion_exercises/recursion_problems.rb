@@ -16,6 +16,10 @@ end
 # Problem 3: 
 
 def num_occur(array, target)
+  return 0 if array.empty?
+  count = 0
+  count += 1 if array.first == target
+  count + num_occur(array[1..-1], target)
 end
 
 # Problem 4: 
