@@ -19,6 +19,15 @@ class PolyTreeNode
     end
   end
 
+  def remove_child(child)
+    unless children.include?(child)
+      raise "child node does not exist"
+    end
+
+    child.parent = nil
+    children.delete(child)
+  end
+
   def inspect
     { "value" => @value, 
       "parent_value" => @parent.value 
