@@ -12,24 +12,35 @@ class PolyTreeNode
     parent.children << self
   end
 
-  def add_child(new_child)
-    unless is_child?(new_child)
-      children << new_child
-      new_child.parent = self
+  def add_child(child_node)
+    unless is_child?(child_node)
+      children << child_node
+      child_node.parent = self
     end
   end
 
-  def remove_child(child)
-    unless is_child?(child)
+  def remove_child(child_node)
+    unless is_child?(child_node)
       raise "child node does not exist"
     end
 
-    child.parent = nil
-    children.delete(child)
+    child_node.parent = nil
+    children.delete(child_node)
   end
 
   def is_child?(node)
     children.include?(node)
+  end
+
+  def dfs(target_val)
+    return self if target_val == value
+
+    children.each do |child|
+      search_result = child.dfs(target_val)
+      return search_result unless search_result.nil?
+    end
+
+    nil
   end
 
   def inspect
