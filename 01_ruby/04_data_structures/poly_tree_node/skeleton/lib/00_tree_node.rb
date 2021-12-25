@@ -12,6 +12,13 @@ class PolyTreeNode
     parent.children << self
   end
 
+  def add_child(new_child)
+    unless children.include?(new_child)
+      children << new_child
+      new_child.parent = self
+    end
+  end
+
   def inspect
     { "value" => @value, 
       "parent_value" => @parent.value 
