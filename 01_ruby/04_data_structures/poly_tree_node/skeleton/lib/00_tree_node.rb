@@ -43,6 +43,18 @@ class PolyTreeNode
     nil
   end
 
+  def bfs(target_val)
+    queue = [self]
+
+    until queue.empty?
+      curr_node = queue.shift
+      return curr_node if curr_node.value == target_val
+      queue.concat(curr_node.children)
+    end
+
+    nil
+  end
+
   def inspect
     { "value" => @value, 
       "parent_value" => @parent.value 
