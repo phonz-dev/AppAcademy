@@ -27,4 +27,13 @@ class KnightPathFinder
     @start_pos = PolyTreeNode.new(start_pos)
     @considered_positions = [ start_pos ]
   end
+
+  def new_move_positions(pos)
+    positions = KnightPathFinder.valid_moves(pos)
+    new_move_positions = positions.select do  |pos|
+      !@considered_positions.include?(pos)
+    end
+    @considered_positions.concat(new_move_positions)
+    new_move_positions
+  end
 end
