@@ -1,3 +1,5 @@
+require "byebug"
+
 class PolyTreeNode
   attr_accessor :value, :parent, :children
 
@@ -57,7 +59,8 @@ class PolyTreeNode
 
   def inspect
     { "value" => @value, 
-      "parent_value" => @parent.value 
+      "parent_value" => @parent,
+      "children" => @children
     }.inspect
   end
 end
