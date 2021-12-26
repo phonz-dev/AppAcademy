@@ -9,17 +9,6 @@ class TicTacToeNode
     @prev_move_pos = prev_move_pos
   end
 
-  # A #losing_node? is described in the following cases:
-
-  # Base case: the board is over AND
-  # If winner is the opponent, this is a losing node.
-  # If winner is nil or us, this is not a losing node.
-
-  # Recursive case:
-  # It is the player's turn, and all the children nodes are losers for the player (anywhere they move they still lose), OR
-  # It is the opponent's turn, and one of the children nodes is a losing node for the player (assumes your opponent plays perfectly; they'll force you to lose if they can).
-  # NB: a draw (Board#tied?) is NOT a loss, if a node is a draw, losing_node? should return false.
-
   def losing_node?(evaluator)
     if board.over?
       return false if board.tied?
@@ -34,6 +23,7 @@ class TicTacToeNode
   end
 
   def winning_node?(evaluator)
+    !losing_node?(evaluator)
   end
 
   # This method generates an array of all moves that can be made after
