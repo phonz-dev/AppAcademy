@@ -1,7 +1,14 @@
 class Board
   attr_accessor :cups
 
+  STORES = [6, 13]
+  CUPS_NUM = 14
+
   def initialize(name1, name2)
+    @name1, @name2 = name1, name2
+    @cups = (0...CUPS_NUM).map do |i|
+      STORES.include?(i) ? [] : Array.new(4).fill(:stone)
+    end
   end
 
   def place_stones
