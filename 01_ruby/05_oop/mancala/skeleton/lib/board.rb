@@ -7,12 +7,12 @@ class Board
   def initialize(name1, name2)
     @name1, @name2 = name1, name2
     @cups = (0...CUPS_NUM).map do |i|
-      STORES.include?(i) ? [] : Array.new(4).fill(:stone)
+      STORES.include?(i) ? [] : place_stones
     end
   end
 
   def place_stones
-    # helper method to #initialize every non-store cup with four stones each
+    Array.new(4).fill(:stone)
   end
 
   def valid_move?(start_pos)
